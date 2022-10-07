@@ -1,0 +1,139 @@
+# source
+# https://pub.towardsai.net/monte-carlo-simulation-an-in-depth-tutorial-with-python-bcf6eb7856c8
+# https://fsymbols.com/generators/tarty/
+
+##############################################################################################################
+
+# ███╗░░░███╗░█████╗░███╗░░██╗████████╗███████╗  ░█████╗░░█████╗░██████╗░██╗░░░░░░█████╗░
+# ████╗░████║██╔══██╗████╗░██║╚══██╔══╝██╔════╝  ██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔══██╗
+# ██╔████╔██║██║░░██║██╔██╗██║░░░██║░░░█████╗░░  ██║░░╚═╝███████║██████╔╝██║░░░░░██║░░██║
+# ██║╚██╔╝██║██║░░██║██║╚████║░░░██║░░░██╔══╝░░  ██║░░██╗██╔══██║██╔══██╗██║░░░░░██║░░██║
+# ██║░╚═╝░██║╚█████╔╝██║░╚███║░░░██║░░░███████╗  ╚█████╔╝██║░░██║██║░░██║███████╗╚█████╔╝
+# ╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝  ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░
+##############################################################################################################
+
+
+# To estimate the value of PI, we need the area of the square and the area of the circle. To find these areas, 
+# we will randomly place dots on the surface and count the dots that fall inside the circle and dots that fall inside the square. 
+# Such will give us an estimated amount of their areas. Therefore instead of using the actual areas, we will use the count of dots to use as areas.
+
+# radius of circle = r
+# squre side lenght = 2 * r
+# area of square = (2 * r)^2
+# area of circle = pi * r^2
+# area of square / area of circle = 4 / pi
+
+##############################################################################################################
+# Import required libraries:
+##############################################################################################################
+# Import required libraries
+import turtle
+import random
+from xmlrpc.server import MultiPathXMLRPCServer
+from matplotlib.lines import lineStyles
+import matplotlib.pyplot as plt
+import math
+
+##############################################################################################################
+# To visualize the dots:
+##############################################################################################################
+# To visualize the random points:
+myPen = turtle.Turtle()
+myPen.hideturtle()
+myPen.speed(0)
+# turtle.speed(speed=None)
+#     ‘fastest’ :  0
+#     ‘fast’    :  10
+#     ‘normal’  :  6
+#     ‘slow’    :  3
+#     ‘slowest’ :  1
+
+# drawing a square:
+myPen.up()
+myPen.setposition(-100,-100)
+myPen.down()
+myPen.fd(200)
+myPen.left(90) # turtle.left(angle)
+myPen.fd(200)
+
+myPen.left(90)
+myPen.fd(200)
+myPen.left(90)
+myPen.fd(200)
+myPen.left(90)
+
+# drawing a circle: 
+myPen.up()
+myPen.setposition(0,-100)
+myPen.down()
+myPen.circle(100) # turtle.circle(radius, extent=None, steps=None)
+
+
+##############################################################################################################
+# Initialize some required data:
+##############################################################################################################
+# To count the points inside and outside the circle:
+in_circle = 0
+out_circle = 0
+
+# To store the values of PI:
+pi_values = []
+
+
+##############################################################################################################
+# Main function:
+##############################################################################################################
+# Running for 5 times:
+for i in range(5):
+    for j in range(100): #number of points valuated
+        # generate random numbers:
+        x=random.randrange(-100,100)
+        y=random.randrange(-100,100)
+
+        #check if the number lies outside the circle:
+        if (x**2 + y**2 > 100**2):
+            myPen.color("black")
+            myPen.up()
+            myPen.goto(x,y)
+            myPen.down()
+            myPen.dot()
+            out_circle = out_circle + 1
+        else:
+            myPen.color("red")
+            myPen.up()
+            myPen.goto(x,y)
+            myPen.down()
+            myPen.dot()
+            in_circle = in_circle+1
+
+        #calculating the value of PI:
+        pi = 4.0 * in_circle / (in_circle+out_circle)
+
+        #append the values of PI in list:
+        pi_values.append(pi)
+
+        #calculating the errors:
+        avg_pi_errors = [abs(math.pi - pi) for pi in pi_values] #math.pi is the mathematical value
+
+    #print the final value of PI for each iterations:
+    print(pi_values[-1])
+
+
+##############################################################################################################
+# Plot the data:
+##############################################################################################################
+# Plot the PI values:
+plt.axhline(y=math.pi, color='g', linestyle='-')
+plt.plot(pi_values)
+plt.xlabel("Iterations")
+plt.ylabel("Value of PI")
+plt.title("PI value estimate")
+plt.show()
+
+# Plot the error in calculation:
+plt.axhline(y=0.0, color='g', linestyle='-')
+plt.plot(avg_pi_errors)
+plt.xlabel("Iterations")
+plt.ylabel("Error")
+plt.title("PI value estimate error")
+plt.show()
