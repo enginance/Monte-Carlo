@@ -1,0 +1,80 @@
+# source
+# https://pub.towardsai.net/monte-carlo-simulation-an-in-depth-tutorial-with-python-bcf6eb7856c8
+# https://fsymbols.com/generators/tarty/
+
+##############################################################################################################
+
+# ███╗░░░███╗░█████╗░███╗░░██╗████████╗███████╗  ░█████╗░░█████╗░██████╗░██╗░░░░░░█████╗░
+# ████╗░████║██╔══██╗████╗░██║╚══██╔══╝██╔════╝  ██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔══██╗
+# ██╔████╔██║██║░░██║██╔██╗██║░░░██║░░░█████╗░░  ██║░░╚═╝███████║██████╔╝██║░░░░░██║░░██║
+# ██║╚██╔╝██║██║░░██║██║╚████║░░░██║░░░██╔══╝░░  ██║░░██╗██╔══██║██╔══██╗██║░░░░░██║░░██║
+# ██║░╚═╝░██║╚█████╔╝██║░╚███║░░░██║░░░███████╗  ╚█████╔╝██║░░██║██║░░██║███████╗╚█████╔╝
+# ╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚══╝░░░╚═╝░░░╚══════╝  ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝░╚════╝░
+##############################################################################################################
+
+
+##############################################################################################################
+# Import required libraries:
+##############################################################################################################
+# Import required libraries:
+import random
+from matplotlib.lines import lineStyles
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+##############################################################################################################
+# Coin flip function
+##############################################################################################################
+# Coin flip function:
+#0 --> Heads
+#1 --> Tails
+def coin_flip():
+    return random.randint(0,1)
+
+##############################################################################################################
+# Checking the output of the function:
+##############################################################################################################
+# Check the return value of coin_flip():
+print(coin_flip())
+
+
+##############################################################################################################
+# Main function:
+##############################################################################################################
+# Monte Carlo simulation:
+
+# Empty list to store the probability values
+list1 = []
+
+def monte_carlo(n):
+    results = 0
+    for i in range(n):
+        flip_result = coin_flip()
+        results = results + flip_result
+
+        # calculating probability value:
+        prob_value = results/(i+1)
+
+        # append the probability values to the list:
+        list1.append(prob_value)
+
+        # plot the results:
+        plt.axhline(y=0.5, color='r', linestyle ='-')
+        plt.xlabel("Iterations")
+        plt.ylabel("Probability")
+        plt.plot(list1)
+        
+    return results/n
+
+
+##############################################################################################################
+# Calling the main function:
+##############################################################################################################
+# calling the function:
+# n_iter = input("Please insert how many iterations: ")
+n_iter = 100
+answer = monte_carlo(n_iter)
+print("Final value: ", answer)
+plt.title("Coin flip probability estimate")
+plt.show()
