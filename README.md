@@ -18,7 +18,6 @@ Some interesting excercises on Monte Carlo simulation in Python
 ## 01. Coin Flip Example:
 
 <p align="center">
-    <img width=30% src="https://github.com/enginance/Monte-Carlo/blob/main/images/MonteCarlo_CoinFlip02.png">
     <img width=50% src="https://github.com/enginance/Monte-Carlo/blob/main/images/MonteCarlo_CoinFlip01.png">
 </p>
 
@@ -26,6 +25,7 @@ Some interesting excercises on Monte Carlo simulation in Python
 ## 02. Estimating PI using circle and square :
 
 <p align="center">
+    <img width=30% src="https://github.com/enginance/Monte-Carlo/blob/main/images/MonteCarlo_PiEstimate04.png">
     <img width=40% src="https://github.com/enginance/Monte-Carlo/blob/main/images/MonteCarlo_PiEstimate01.PNG">
     <img width=40% src="https://github.com/enginance/Monte-Carlo/blob/main/images/MonteCarlo_PiEstimate02.PNG">
     <img width=40% src="https://github.com/enginance/Monte-Carlo/blob/main/images/MonteCarlo_PiEstimate03.PNG">
